@@ -25,6 +25,7 @@ const CollegeCard = ({ college }) => {
             <div>
               <p className="text-sm text-gray-600">Avg. Annual Fees</p>
               <p className="font-bold text-lg text-gray-900">₹ {college.fees.toLocaleString('en-IN')}</p>
+              <p className="text-sm text-green-600 font-semibold">Placement: {Object.values(college.placements)[Object.values(college.placements).length - 1]}%</p>
             </div>
             <Link to={`/college/${college.id}`} className="bg-brand-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all">
               View Details

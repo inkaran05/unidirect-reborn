@@ -60,6 +60,56 @@ const CollegeDetailPage = () => {
                     <p className="text-3xl font-bold text-gray-900">₹ {college.fees.toLocaleString('en-IN')}</p>
                 </div>
             </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">Facilities</h2>
+              <div className="flex flex-wrap gap-2">
+                {college.facilities.map(facility => (
+                  <span key={facility} className="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">{facility}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">Placement Statistics</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {Object.entries(college.placements).map(([year, percentage]) => (
+                  <div key={year} className="bg-blue-50 p-4 rounded-lg text-center">
+                    <h4 className="text-lg font-bold text-gray-900">{year}</h4>
+                    <p className="text-2xl font-bold text-blue-600">{percentage}%</p>
+                    <p className="text-sm text-gray-600">Placement Rate</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">Course Details</h2>
+              <div className="space-y-4">
+                {Object.entries(college.courseDetails).map(([course, details]) => (
+                  <div key={course} className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="text-lg font-bold text-gray-900">{course}</h4>
+                    <p className="text-gray-600">{details}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">Student Reviews</h2>
+              <div className="space-y-4">
+                {college.studentReviews.map((review, index) => (
+                  <div key={index} className="bg-yellow-50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <span className="font-bold text-gray-900">{review.name}</span>
+                      <span className="ml-2 text-yellow-600">{review.rating} ★</span>
+                    </div>
+                    <p className="text-gray-600">{review.comment}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
              <div className="mt-8 text-center">
                 <button className="bg-brand-yellow text-brand-blue-dark font-bold py-3 px-8 rounded-lg shadow-md hover:bg-yellow-500 transition-all text-lg">
                     Apply Now

@@ -1,6 +1,7 @@
 // src/pages/HomePage.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { colleges } from '../mock-data';
 
 // A simple, self-contained Icon component for clarity and to avoid creating extra files.
 const Icon = ({ name, className }) => {
@@ -96,6 +97,32 @@ const HomePage = () => {
               <h3 className="text-xl font-semibold mb-2">3. Get Free Guidance</h3>
               <p className="text-gray-600">Our experts help you with the application process, often for free, ensuring a smooth admission.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* "Featured Colleges" Section */}
+      <section id="featured-colleges" className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Featured Colleges</h2>
+            <p className="mt-4 text-lg text-gray-600">Top-rated institutions with excellent placement records.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {colleges.slice(0, 3).map(college => (
+              <div key={college.id} className="bg-gray-50 rounded-xl shadow-md overflow-hidden">
+                <img className="h-48 w-full object-cover" src={college.imageUrl} alt={`Campus of ${college.name}`} />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900">{college.name}</h3>
+                  <p className="text-gray-600">{college.city}, {college.state}</p>
+                  <p className="text-yellow-600 font-semibold">{college.rating} ★</p>
+                  <p className="text-green-600 font-semibold">Placement: {Object.values(college.placements)[Object.values(college.placements).length - 1]}%</p>
+                  <Link to={`/college/${college.id}`} className="mt-4 inline-block bg-brand-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all">
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
