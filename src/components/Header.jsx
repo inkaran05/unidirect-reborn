@@ -28,11 +28,11 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8 text-gray-700 font-semibold">
-          <NavLink to="/" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>Home</NavLink>
+        <nav className="hidden lg:flex items-center space-x-6 text-gray-700 font-semibold">
           <NavLink to="/search" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>Find Colleges</NavLink>
-          <NavLink to="/international" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>International</NavLink>
-          <NavLink to="/about" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>About Us</NavLink>
+          <NavLink to="/international" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>Study Abroad</NavLink>
+          <NavLink to="/stories" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>Success Stories</NavLink>
+          <NavLink to="/blog" className={({isActive}) => isActive ? "text-brand-blue" : "hover:text-brand-blue"}>Blog</NavLink>
         </nav>
 
         {/* Desktop Auth Buttons */}
@@ -69,16 +69,17 @@ const Header = () => {
           <nav className="flex flex-col items-center space-y-4 py-4 text-lg">
             <Link to="/" onClick={closeMenu}>Home</Link>
             <Link to="/search" onClick={closeMenu}>Find Colleges</Link>
-            <Link to="/international" onClick={closeMenu}>International</Link>
-            <Link to="/about" onClick={closeMenu}>About Us</Link>
+            <Link to="/international" onClick={closeMenu}>Study Abroad</Link>
+            <Link to="/stories" onClick={closeMenu}>Success Stories</Link>
+            <Link to="/blog" onClick={closeMenu}>Blog</Link>
             <div className="pt-4 border-t w-full flex flex-col items-center space-y-4">
               {user ? (
                 <>
                   <Link to="/dashboard" onClick={closeMenu}>Dashboard</Link>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout} className="bg-red-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-600">Logout</button>
                 </>
               ) : (
-                <Link to="/login" onClick={closeMenu} className="bg-brand-blue text-white font-bold py-2 px-6 rounded-lg">Login</Link>
+                <Link to="/login" onClick={closeMenu} className="bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700">Login</Link>
               )}
             </div>
           </nav>
