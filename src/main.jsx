@@ -5,6 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
 
+// Import our new AuthProvider
+import { AuthProvider } from './context/AuthContext.jsx';
+
 // Import your new pages
 import HomePage from './pages/HomePage.jsx';
 import SearchPage from './pages/SearchPage.jsx';
@@ -12,6 +15,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import InternationalPage from './pages/InternationalPage.jsx';
 import CollegeDetailPage from './pages/CollegeDetailPage.jsx'; // 1. Import the new page
+import DashboardPage from './pages/DashboardPage.jsx'; // 2. Import the new dashboard page
 
 // Define the application routes
 const router = createBrowserRouter([
@@ -25,12 +29,15 @@ const router = createBrowserRouter([
       { path: '/about', element: <AboutPage /> },
       { path: '/international', element: <InternationalPage /> },
       { path: '/college/:collegeId', element: <CollegeDetailPage /> }, // 2. Add the new dynamic route
+      { path: '/dashboard', element: <DashboardPage /> }, // 3. Add the new dashboard route
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider> {/* 1. Add the opening tag here */}
+      <RouterProvider router={router} />
+    </AuthProvider> {/* 2. Add the closing tag here */}
   </React.StrictMode>,
 );

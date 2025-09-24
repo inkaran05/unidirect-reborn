@@ -1,8 +1,17 @@
 // src/components/Header.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 
 const Header = () => {
+  const { user, logout } = useAuth(); // 2. Get user and logout function from context
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/'); // Redirect to homepage after logout
+  };
+
   return (
     <header className="bg-white/90 backdrop-blur-lg shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
@@ -13,12 +22,27 @@ const Header = () => {
         <nav className="hidden lg:flex items-center space-x-8 text-gray-700 font-semibold">
           <Link to="/" className="hover:text-brand-blue transition-colors">Home</Link>
           <Link to="/search" className="hover:text-brand-blue transition-colors">Find Colleges</Link>
-          <Link to="/international" className="hover:text-brand-blue transition-colors">International</Link> {/* Add this link */}
+          <Link to="/international" className="hover:text-brand-blue transition-colors">International</Link>
           <Link to="/about" className="hover:text-brand-blue transition-colors">About Us</Link>
         </nav>
-        <Link to="/login" className="hidden lg:block bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
-          Login
-        </Link>
+        
+        {/* 3. This is our new dynamic section */}
+        <div className="hidden lg:flex items-center space-x-4">
+          {user ? (
+            // If user is logged in, show Dashboard and Logout
+            <>
+              <Link to="/dashboard" className="font-semibold text-gray-700 hover:text-brand-blue">Dashboard</Link>
+              <button onClick={handleLogout} className="bg-red-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-600 transition-all">
+                Logout
+              </button>
+            </>
+          ) : (
+            // If user is logged out, show Login
+            <Link to="/login" className="bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+              Login
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

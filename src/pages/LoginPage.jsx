@@ -1,8 +1,18 @@
 // src/pages/LoginPage.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 
 const LoginPage = () => {
+  const { login } = useAuth(); // 2. Get the login function
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login(); // 3. Call the simulated login function
+    navigate('/dashboard'); // 4. Redirect to the dashboard
+  };
+
   return (
     <div className="min-h-[70vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -17,7 +27,8 @@ const LoginPage = () => {
             </a>
           </p>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        {/* 5. Attach handleLogin to the form's onSubmit */}
+        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">Email address</label>

@@ -1,19 +1,21 @@
 // src/pages/SearchPage.jsx
 import React, { useState, useEffect } from 'react';
-import { colleges as allColleges } from '../mock-data.js'; // Import our mock data
+import { useSearchParams } from 'react-router-dom'; // 1. Import useSearchParams
+import { colleges as allColleges } from '../mock-data.js';
 import CollegeCard from '../components/CollegeCard';
 
 const SearchPage = () => {
-  // State to hold the filtered list of colleges
+  const [searchParams] = useSearchParams(); // 2. Initialize the hook
+
   const [filteredColleges, setFilteredColleges] = useState(allColleges);
 
-  // State to manage the user's filter selections
+  // 3. Initialize filters from the URL, with fallback values
   const [filters, setFilters] = useState({
-    budget: 500000,
-    location: '',
+    budget: searchParams.get('budget') || 500000,
+    location: searchParams.get('location') || '',
+    stream: searchParams.get('stream') || '',
   });
 
-  // This function is called whenever a filter changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters(prevFilters => ({
@@ -22,35 +24,38 @@ const SearchPage = () => {
     }));
   };
 
-  // This `useEffect` hook runs whenever the `filters` state changes
   useEffect(() => {
     let result = allColleges;
 
     // Filter by budget
     result = result.filter(college => college.fees <= filters.budget);
 
-    // Filter by location (city or state)
+    // Filter by location
     if (filters.location) {
-      result = result.filter(college =>
+      result = result.filter(college => 
         college.city.toLowerCase().includes(filters.location.toLowerCase()) ||
         college.state.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
+    
+    // Filter by stream
+    if (filters.stream) {
+        result = result.filter(college => college.courses.includes(filters.stream));
+    }
 
     setFilteredColleges(result);
-  }, [filters]); // The dependency array ensures this runs only when filters change
+  }, [filters]);
 
   return (
     <div className="bg-gray-100 py-8">
       <div className="container mx-auto px-6 lg:flex lg:space-x-8">
-
-        {/* Filter Sidebar */}
+        
         <aside className="w-full lg:w-1/4">
           <div className="sticky top-24">
             <div className="p-6 bg-white rounded-xl shadow-lg">
               <h3 className="text-xl font-bold text-gray-800 mb-4">Filters</h3>
               <div className="space-y-6">
-
+                
                 {/* Budget Filter */}
                 <div>
                   <label htmlFor="budget" className="font-semibold text-gray-700 block mb-2">Annual Fee Budget</label>
@@ -85,24 +90,34 @@ const SearchPage = () => {
                   />
                 </div>
 
+                {/* Stream Filter */}
+                 <div>
+                  <label htmlFor="stream" className="font-semibold text-gray-700 block mb-2">Stream</label>
+                  <select
+                    id="stream"
+                    name="stream"
+                    value={filters.stream}
+                    onChange={handleFilterChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue transition"
+                  >
+                    <option value="">All Streams</option>
+                    <option>Science</option>
+                    <option>Commerce</option>
+                    <option>Arts</option>
+                    <option>B.Tech</option>
+                    <option>BBA</option>
+                  </select>
+                </div>
+
               </div>
             </div>
           </div>
         </aside>
 
-        {/* College Listings */}
         <main className="w-full lg:w-3/4 mt-8 lg:mt-0">
-          <div className="mb-6 flex justify-between items-center">
-             <h1 className="text-3xl font-bold">
-                {filteredColleges.length} Colleges Found
-             </h1>
-             {/* We will make the "Sort By" functional later */}
-             <select className="border border-gray-300 rounded-lg p-2">
-                <option>Sort by: Popularity</option>
-                <option>Sort by: Fees (Low to High)</option>
-             </select>
-          </div>
-
+          <h1 className="text-3xl font-bold mb-6">
+            {filteredColleges.length} Colleges Found
+          </h1>
           <div className="space-y-6">
             {filteredColleges.length > 0 ? (
                 filteredColleges.map(college => (
@@ -116,7 +131,6 @@ const SearchPage = () => {
             )}
           </div>
         </main>
-
       </div>
     </div>
   );
