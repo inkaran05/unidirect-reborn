@@ -1,5 +1,6 @@
 // src/components/CollegeCard.jsx
 import React from 'react';
+import { Link } from 'react-router-dom'; // 1. Import Link
 
 const CollegeCard = ({ college }) => {
   return (
@@ -25,9 +26,9 @@ const CollegeCard = ({ college }) => {
               <p className="text-sm text-gray-600">Avg. Annual Fees</p>
               <p className="font-bold text-lg text-gray-900">₹ {college.fees.toLocaleString('en-IN')}</p>
             </div>
-            <a href="#" className="bg-brand-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all">
+            <Link to={`/college/${college.id}`} className="bg-brand-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all">
               View Details
-            </a>
+            </Link>
           </div>
         </div>
       </div>
