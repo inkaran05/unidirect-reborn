@@ -133,3 +133,118 @@ export const colleges = [
     }
   }
 ];
+
+export const features = [
+  {
+    id: 1,
+    title: "Expert Guidance",
+    description: "Get personalized counseling from education experts to find the perfect college match.",
+    icon: "graduationCap"
+  },
+  {
+    id: 2,
+    title: "Global Opportunities",
+    description: "Explore international universities and study abroad programs with our global network.",
+    icon: "globe"
+  },
+  {
+    id: 3,
+    title: "Verified Colleges",
+    description: "Access only verified and accredited institutions with transparent ratings and reviews.",
+    icon: "shield"
+  },
+  {
+    id: 4,
+    title: "Career Support",
+    description: "Comprehensive placement assistance and career counseling for long-term success.",
+    icon: "chartBar"
+  },
+  {
+    id: 5,
+    title: "Community Driven",
+    description: "Join a community of successful students and alumni sharing experiences and insights.",
+    icon: "users"
+  },
+  {
+    id: 6,
+    title: "Quality Education",
+    description: "Partner with top-ranked universities offering world-class education and facilities.",
+    icon: "star"
+  }
+];
+
+export const partners = [
+  {
+    id: 1,
+    name: "IIT Delhi",
+    logoUrl: "https://placehold.co/150x80/1e3a8a/ffffff?text=IIT+Delhi"
+  },
+  {
+    id: 2,
+    name: "IIM Ahmedabad",
+    logoUrl: "https://placehold.co/150x80/059669/ffffff?text=IIM+Ahmedabad"
+  },
+  {
+    id: 3,
+    name: "Christ University",
+    logoUrl: "https://placehold.co/150x80/dc2626/ffffff?text=Christ+Uni"
+  },
+  {
+    id: 4,
+    name: "Amity University",
+    logoUrl: "https://placehold.co/150x80/7c3aed/ffffff?text=Amity"
+  },
+  {
+    id: 5,
+    name: "Delhi University",
+    logoUrl: "https://placehold.co/150x80/ea580c/ffffff?text=DU"
+  },
+  {
+    id: 6,
+    name: "JNU",
+    logoUrl: "https://placehold.co/150x80/0891b2/ffffff?text=JNU"
+  }
+];
+
+export const testimonials = [
+  {
+    id: 1,
+    name: "Anjali Kumari",
+    role: "B.Tech Student",
+    message: "UniDirect made the impossible possible. I found a great engineering college within my budget!",
+    rating: 5,
+    imageUrl: "https://placehold.co/100x100/e2e8f0/475569?text=AK"
+  },
+  {
+    id: 2,
+    name: "Rohan Sharma",
+    role: "MBA Student",
+    message: "As a commerce student, I was overwhelmed. The guidance from the UniDirect team was free and incredibly helpful.",
+    rating: 5,
+    imageUrl: "https://placehold.co/100x100/dbeafe/1e3a8a?text=RS"
+  },
+  {
+    id: 3,
+    name: "Priya Singh",
+    role: "International Student",
+    message: "I never thought I could study abroad until I found the international section. They guided me through the whole process.",
+    rating: 5,
+    imageUrl: "https://placehold.co/100x100/fef2f2/dc2626?text=PS"
+  },
+  {
+    id: 4,
+    name: "Vikram Patel",
+    role: "Engineering Graduate",
+    message: "The placement support was outstanding. I landed my dream job through their network.",
+    rating: 5,
+    imageUrl: "https://placehold.co/100x100/f3e8ff/7c3aed?text=VP"
+  },
+  {
+    id: 5,
+    name: "Sneha Gupta",
+    role: "Arts Student",
+    message: "Found the perfect liberal arts program that matched my interests. Highly recommend UniDirect!",
+    rating: 4,
+    imageUrl: "https://placehold.co/100x100/ecfdf5/059669?text=SG"
+  }
+];
