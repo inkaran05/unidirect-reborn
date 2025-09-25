@@ -20,6 +20,9 @@ import DashboardPage from './pages/DashboardPage.jsx'; // 2. Import the new dash
 import SuccessStoriesPage from './pages/SuccessStoriesPage.jsx'; // Import Success Stories page
 import BlogPage from './pages/BlogPage.jsx'; // Import Blog page
 
+// Import ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
 // Define the application routes
 const router = createBrowserRouter([
   {
@@ -33,7 +36,7 @@ const router = createBrowserRouter([
       { path: '/about', element: <AboutPage /> },
       { path: '/international', element: <InternationalPage /> },
       { path: '/college/:collegeId', element: <CollegeDetailPage /> }, // 2. Add the new dynamic route
-      { path: '/dashboard', element: <DashboardPage /> }, // 3. Add the new dashboard route
+      { path: '/dashboard', element: <ProtectedRoute><DashboardPage /></ProtectedRoute> }, // 3. Add the new dashboard route protected
       { path: '/stories', element: <SuccessStoriesPage /> }, // Add Success Stories route
       { path: '/blog', element: <BlogPage /> }, // Add Blog route
     ],
