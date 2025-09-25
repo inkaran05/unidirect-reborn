@@ -6,25 +6,20 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase'; // Import auth
 
 const LoginPage = () => {
-  const { login, signup, forgotPassword } = useAuth(); // Get the login, signup, and forgotPassword functions
+  const { login, forgotPassword } = useAuth(); // Get the login and forgotPassword functions
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Handle Email/Password Login or Signup
+  // Handle Email/Password Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     try {
-      if (isLogin) {
-        await login(email, password);
-      } else {
-        await signup(email, password);
-      }
+      await login(email, password);
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);
@@ -67,35 +62,17 @@ const LoginPage = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {isLogin ? 'Sign in to your account' : 'Create your account'}
+            Sign in to your account
           </h2>
-          {isLogin && (
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
-              <Link to="/signup" className="font-medium text-brand-blue hover:text-brand-blue-dark">
-                create a new account
-              </Link>
-            </p>
-          )}
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Or{' '}
+            <Link to="/signup" className="font-medium text-brand-blue hover:text-brand-blue-dark">
+              create a new account
+            </Link>
+          </p>
         </div>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
-
-        {/* Toggle between Login and Sign Up */}
-        <div className="flex justify-center">
-          <button
-            onClick={() => setIsLogin(true)}
-            className={`px-4 py-2 text-sm font-medium ${isLogin ? 'text-brand-blue border-b-2 border-brand-blue' : 'text-gray-500'}`}
-          >
-            Sign In
-          </button>
-          <button
-            onClick={() => setIsLogin(false)}
-            className={`px-4 py-2 text-sm font-medium ${!isLogin ? 'text-brand-blue border-b-2 border-brand-blue' : 'text-gray-500'}`}
-          >
-            Sign Up
-          </button>
-        </div>
 
         {/* Email/Password Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -130,22 +107,20 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {isLogin && (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-brand-blue focus:ring-brand-blue border-gray-300 rounded" />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <button onClick={handleForgotPassword} className="font-medium text-brand-blue hover:text-brand-blue-dark">
-                  Forgot your password?
-                </button>
-              </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-brand-blue focus:ring-brand-blue border-gray-300 rounded" />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                Remember me
+              </label>
             </div>
-          )}
+
+            <div className="text-sm">
+              <button onClick={handleForgotPassword} className="font-medium text-brand-blue hover:text-brand-blue-dark">
+                Forgot your password?
+              </button>
+            </div>
+          </div>
 
           <div>
             <button
@@ -153,7 +128,7 @@ const LoginPage = () => {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-brand-blue hover:bg-brand-blue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue disabled:opacity-50"
             >
-              {loading ? (isLogin ? 'Signing in...' : 'Signing up...') : (isLogin ? 'Sign in' : 'Sign up')}
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
         </form>
