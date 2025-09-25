@@ -11,35 +11,41 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+// Create the Provider component that will wrap our entire app
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); // 'null' means the user is logged out
+  const [loading, setLoading] = useState(true); // To handle the initial loading state
 
+  // Listen for authentication state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
       setLoading(false);
     });
 
+    // Cleanup subscription on unmount
     return unsubscribe;
   }, []);
 
+  // Login function
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      throw error;
+      throw error; // Throw error so the component can handle it
     }
   };
 
+  // Signup function
   const signup = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      throw error;
+      throw error; // Throw error so the component can handle it
     }
   };
 
+  // Forgot Password function
   const forgotPassword = async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
@@ -48,8 +54,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    return signOut(auth);
+  // Logout function
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const value = {
@@ -61,9 +72,5 @@ export const AuthProvider = ({ children }) => {
     loading,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
