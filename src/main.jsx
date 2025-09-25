@@ -12,6 +12,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import HomePage from './pages/HomePage.jsx';
 import SearchPage from './pages/SearchPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import InternationalPage from './pages/InternationalPage.jsx';
 import CollegeDetailPage from './pages/CollegeDetailPage.jsx'; // 1. Import the new page
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: '/', element: <HomePage /> },
       { path: '/search', element: <SearchPage /> },
       { path: '/login', element: <LoginPage /> },
+      { path: '/signup', element: <SignupPage /> },
       { path: '/about', element: <AboutPage /> },
       { path: '/international', element: <InternationalPage /> },
       { path: '/college/:collegeId', element: <CollegeDetailPage /> }, // 2. Add the new dynamic route

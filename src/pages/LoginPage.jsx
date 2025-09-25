@@ -1,6 +1,6 @@
 // src/pages/LoginPage.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase'; // Import auth
@@ -69,6 +69,14 @@ const LoginPage = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {isLogin ? 'Sign in to your account' : 'Create your account'}
           </h2>
+          {isLogin && (
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Or{' '}
+              <Link to="/signup" className="font-medium text-brand-blue hover:text-brand-blue-dark">
+                create a new account
+              </Link>
+            </p>
+          )}
         </div>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
