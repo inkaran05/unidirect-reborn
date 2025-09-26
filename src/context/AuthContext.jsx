@@ -1,66 +1,43 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../firebase'; // Import the auth instance from your firebase.js
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../firebase.js'; // Import auth from our real config file
 
-// Create the context
 const AuthContext = createContext();
 
-// Create a custom hook to make it easy to use the context
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Add a loading state
 
+  // This is the core of our real authentication.
+  // It listens for changes in the user's login state across the entire app.
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      // This function runs whenever a user logs in or out with Firebase.
       setUser(currentUser);
-      setLoading(false);
+      setLoading(false); // We are done checking, so we can show the app.
     });
 
+    // This cleans up the listener when the component is no longer on the screen
     return unsubscribe;
-  }, []);
+  }, []); // The empty array means this effect runs only once when the app starts
 
-  const login = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const signup = async (email, password) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const forgotPassword = async (email) => {
-    try {
-      await sendPasswordResetEmail(auth, email);
-    } catch (error) {
-      throw error;
-    }
-  };
-
+  // The logout function will now use the real Firebase signOut.
   const logout = () => {
     return signOut(auth);
   };
 
   const value = {
     user,
-    login,
-    signup,
-    forgotPassword,
     logout,
     loading,
   };
 
+  // We wait until Firebase has finished its initial check before rendering the app.
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

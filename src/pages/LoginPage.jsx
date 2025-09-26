@@ -1,12 +1,10 @@
 // src/pages/LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import useAuth
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebase'; // Import auth
 
 const LoginPage = () => {
-  const { login, forgotPassword } = useAuth(); // Get the login and forgotPassword functions
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +17,7 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
     try {
-      await login(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);
@@ -48,7 +46,7 @@ const LoginPage = () => {
       setLoading(true);
       setError('');
       try {
-        await forgotPassword(resetEmail);
+        await sendPasswordResetEmail(auth, resetEmail);
         alert('Password reset email sent!');
       } catch (err) {
         setError(err.message);
